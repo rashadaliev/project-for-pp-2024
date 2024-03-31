@@ -1,0 +1,27 @@
+.container{
+    background-color: black;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    width: 35px;
+    padding-left: 20px;
+    padding-right: 15px;
+}
+
+.logo-link{
+    display: flex;
+}
+.left-menu{
+    color: white;
+    font-weight: 600;
+    display: flex;
+    gap: 30px;
+    margin-left: 15px;
+}
+
+.my-site, .crm{
+    cursor: pointer;
+}
