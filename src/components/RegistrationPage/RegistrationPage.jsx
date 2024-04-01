@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./RegistrationPage.module.css";
 import { Link } from "react-router-dom";
-import logo from "../../assets/k.png";
+import logo from "../../assets/k-small.png";
 import axios from "axios";
 const RegistrationPage = () => {
   const [email, setEmail] = useState("");

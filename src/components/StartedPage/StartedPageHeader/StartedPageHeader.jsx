@@ -1,18 +1,23 @@
 import React from "react";
 import styles from "./StartedPageHeader.module.css";
 import { Link } from "react-router-dom";
+import logo from "../../../assets/k-small.png";
 const StartedPageHeader = () => {
   return (
     <div className={`${styles.flex} ${styles["header-container"]}`}>
-      <a href="#" className={styles.link}>
-        konstruct
-      </a>
+      <div className={styles["logo-container"]}>
+        <div className={styles.square}></div>
+        <a href="#">
+          <img src={logo} alt="" />
+        </a>
+      </div>
+
       <div className={styles["authentication"]}>
-        <Link to={`/registration`} className={styles.link}>
-          Регистрация
-        </Link>
         <Link to={`/login`} className={styles.link}>
           Войти
+        </Link>
+        <Link to={`/registration`} className={styles.link}>
+          Регистрация
         </Link>
       </div>
     </div>

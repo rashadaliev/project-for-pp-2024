@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../PersonalAreaHeader/PersonalAreaHeader.module.css";
-import logo from "../../../assets/k.png";
+import logo from "../../../assets/k-big.png";
 import { Link } from "react-router-dom";
 const PersonalAreaHeader = (props) => {
   const { name } = props;
