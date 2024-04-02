@@ -1,9 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./RegistrationPage.module.css";
 import { Link } from "react-router-dom";
-import logo from "../../assets/k-small.png";
+import logo from "../../assets/k-big-negative.png";
 import axios from "axios";
 const RegistrationPage = () => {
+  useEffect(() => {
+    const new_styles = {
+      "--body-background-color": "#2590CC",
+    };
+    Object.entries(new_styles).forEach(([key, value]) => {
+      document.documentElement.style.setProperty(key, value);
+    });
+
+    return () => {
+      const last_styles = {
+        "--body-background-color": "white",
+      };
+
+      Object.entries(last_styles).forEach(([key, value]) => {
+        document.documentElement.style.setProperty(key, value);
+      });
+    };
+  }, []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
@@ -20,10 +38,11 @@ const RegistrationPage = () => {
   return (
     <div className={styles["reg-wrapper"]}>
       <div className={styles["form-container"]}>
+        <Link to="/">
+          <img src={logo} alt="Logo" className={styles.logo} />
+        </Link>
         <form onSubmit={handleSubmit} action="" className={styles["form"]}>
-          <Link to="/">
-            <img src={logo} alt="Logo" className={styles.logo} />
-          </Link>
+          <div className={styles["title-form"]}>Регистрация</div>
           <input
             type="text"
             placeholder="Ваше имя"
@@ -47,7 +66,7 @@ const RegistrationPage = () => {
             Зарегистрироваться
           </button>
           <Link to="/login" className={styles["help-link"]}>
-            Уже зарегистрированы? Войти тут
+            Уже зарегистрированы? <u>Войти тут</u>
           </Link>
         </form>
       </div>
