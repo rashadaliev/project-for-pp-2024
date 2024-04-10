@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RegistrationPage.module.css";
 import { Link } from "react-router-dom";
-import logo from "../../assets/k-big-negative.png";
+import logo from "../../assets/k-logo.png";
 import axios from "axios";
 const RegistrationPage = () => {
   useEffect(() => {

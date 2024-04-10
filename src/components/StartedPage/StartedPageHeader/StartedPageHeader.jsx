@@ -16,8 +16,11 @@ const StartedPageHeader = () => {
         <Link to={`/login`} className={styles.link}>
           Войти
         </Link>
-        <Link to={`/registration`} className={styles.link}>
-          Регистрация
+        <Link
+          to={`/registration`}
+          className={`${styles["link"]} ${styles["link-reg"]}`}
+        >
+          Зарегистрироваться
         </Link>
       </div>
     </div>

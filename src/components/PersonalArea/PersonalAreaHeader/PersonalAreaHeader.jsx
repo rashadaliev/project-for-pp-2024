@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "../PersonalAreaHeader/PersonalAreaHeader.module.css";
-import logo from "../../../assets/k-big.png";
+import logo from "../../../assets/k-small.png";
 import { Link } from "react-router-dom";
 const PersonalAreaHeader = (props) => {
   const { name } = props;
   return (
     <div className={styles["container"]}>
       <div className={styles["left-half"]}>
+        <div className={styles.square}></div>
         <Link className={styles["logo-link"]}>
           <img src={logo} alt="" className={styles["logo"]} />
         </Link>

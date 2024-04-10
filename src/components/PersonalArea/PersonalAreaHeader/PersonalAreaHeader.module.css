@@ -1,14 +1,22 @@
 .container{
-    background-color: black;
-    height: 60px;
+    background-color: #31cfb3;
+    height: 80px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding-right: 20px;
 }
 
+.square{
+    width: 15px;
+    height: 30px;
+    background-color: #000;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 .logo{
-    width: 35px;
     padding-left: 20px;
-    padding-right: 15px;
+    padding-right: 10px;
 }
 
 .logo-link{
@@ -20,6 +28,11 @@
     display: flex;
     gap: 30px;
     margin-left: 15px;
+}
+
+.left-half{
+    display: flex;
+    align-items: center;
 }
 
 .my-site, .crm{
