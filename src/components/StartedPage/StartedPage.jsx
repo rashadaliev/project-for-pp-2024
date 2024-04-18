@@ -1,10 +1,11 @@
 import React from "react";
 import StartedPageHeader from "./StartedPageHeader/StartedPageHeader";
 import StartedPageBody from "./StartedPageBody/StartedPageBody";
-import "../StartedPage/StartedPage.module.css";
+import styles from "../StartedPage/StartedPage.module.css";
+import { useState, useEffect } from "react";
 const StartedPage = () => {
   return (
-    <div>
+    <div className={styles.fon}>
       <StartedPageHeader></StartedPageHeader>
       <StartedPageBody></StartedPageBody>
     </div>

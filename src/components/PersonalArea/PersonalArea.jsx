@@ -1,12 +1,16 @@
 import React from "react";
+import { useState } from "react";
 import PersonalAreaHeader from "./PersonalAreaHeader/PersonalAreaHeader";
-import { useLocation } from "react-router-dom";
+import PersonalAreaBody from "./PersonalAreaBody/PersonalAreaBody";
 const PersonalArea = () => {
-  const location = useLocation();
-  const { NAME } = location.state;
+  const [selectedSection, setSelectedSection] = useState("Мой сайт");
   return (
     <div>
-      <PersonalAreaHeader name={NAME}></PersonalAreaHeader>
+      <PersonalAreaHeader
+        selectedSection={selectedSection}
+        setSelectedSection={setSelectedSection}
+      ></PersonalAreaHeader>
+      <PersonalAreaBody selectedSection={selectedSection}></PersonalAreaBody>
     </div>
   );
 };

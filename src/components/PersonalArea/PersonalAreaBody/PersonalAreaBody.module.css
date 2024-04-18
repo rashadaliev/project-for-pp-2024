@@ -1,0 +1,123 @@
+.container{
+    max-width: 1040px;
+    margin: 50px auto;
+    padding: 0 80px;
+}
+
+.header-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-site{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    border: #18054f;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    background: #18054f;
+    padding-bottom: 10px;
+}
+.card-site:first-child,
+.card-site:nth-child(2){
+    margin-top: 67px;
+
+}
+
+.katalog{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap:30px;
+    column-gap: 40px;
+}
+
+/* .zero-sites{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+} */
+
+/* .zero-sites__img{
+    margin-top: 50px;
+} */
+
+.zero-sites__center{
+    justify-content: center;
+}
+
+.template-selection{
+    justify-content: center;
+}
+/* .zero-sites__text{
+    margin: 0;
+    font-size: 32px;
+    color: #000;
+} */
+
+.header-container__title{
+    font-weight: 700;
+    font-size: 40px;
+    color: #333;
+}
+
+.header-container__button{
+display: flex;
+align-items: center;
+border-radius: 15px;
+padding: 15px 20px;
+background: #31cfb3;
+border: #31cfb3;
+cursor: pointer;
+}
+
+.btn-editing{
+    background: #03bd59;
+border: #03bd59;
+}
+
+.header-container__button-title{
+    margin: 0;
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+}
+
+.choose-theme{
+    padding: 0;
+    margin: 10px 10px 0 0;
+    align-self: flex-end;
+    background-color: inherit;
+    border: inherit;
+    cursor: pointer;
+}
+
+.card-site__title{
+    color: #fff;
+    font-size: 32px;
+    font-weight: 600;
+    margin: 10px 0 0 40px;
+}
+
+.card-site__footer{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+    background: #eee;
+    margin-top: 85px;
+}
+
+.footer-menu__el{
+    font-size: 14px;
+    color: #000;
+    padding: 10px 0;
+    background: inherit;
+    border: inherit;
+    cursor: pointer;
+}
+
+.delete-button{
+    color: #d80000;
+}

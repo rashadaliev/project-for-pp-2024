@@ -1,5 +1,5 @@
 .container{
-    background-color: #31cfb3;
+    background-color: #262261;
     height: 80px;
     display: flex;
     align-items: center;
@@ -35,6 +35,30 @@
     align-items: center;
 }
 
-.my-site, .crm{
+.sections{
     cursor: pointer;
+    font-size: 20px;
+}
+
+.choosen-section{
+    position: relative;
+}
+
+.choosen-section::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border-bottom: 3px solid #fff;
+    margin-top: 49px;
+}
+
+.right-half{
+    cursor: pointer;
+    display: flex;
+}
+
+.strelka{
+    align-self: center;
+    margin-left: 5px;
 }

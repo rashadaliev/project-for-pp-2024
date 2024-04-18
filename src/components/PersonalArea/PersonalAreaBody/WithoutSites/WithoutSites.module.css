@@ -1,0 +1,32 @@
+.zero-sites{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+}
+.zero-sites__img{
+    margin-top: 50px;
+}
+.zero-sites__text{
+    margin: 0;
+    font-size: 32px;
+    color: #000;
+}
+.header-container__button{
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    padding: 15px 20px;
+    background: #31cfb3;
+    border: #31cfb3;
+    cursor: pointer;
+}
+
+.header-container__button-title{
+    margin: 0;
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+}

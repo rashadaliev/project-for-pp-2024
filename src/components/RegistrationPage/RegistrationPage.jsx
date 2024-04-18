@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RegistrationPage.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/k-logo.png";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 const RegistrationPage = () => {
   useEffect(() => {
     const new_styles = {
@@ -14,7 +15,7 @@ const RegistrationPage = () => {
 
     return () => {
       const last_styles = {
-        "--body-background-color": "white",
+        "--body-background-color": "#eee",
       };
 
       Object.entries(last_styles).forEach(([key, value]) => {
@@ -22,18 +23,33 @@ const RegistrationPage = () => {
       });
     };
   }, []);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [regData, setRegData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  // const [username, setUsername] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const response = await fetch("https://reqres.in/api/register", {
-      method: "POST",
+    const config = {
       headers: {
-        "Content-Type": "applocation/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
-    });
+    };
+    try {
+      await axios.post("http://localhost:5231/api/MasterReg", regData, config);
+    } catch (error) {
+      console.error(error);
+    }
+    navigate("/login");
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRegData((prevState) => ({ ...prevState, [name]: value }));
   };
   return (
     <div className={styles["reg-wrapper"]}>
@@ -45,22 +61,27 @@ const RegistrationPage = () => {
           <div className={styles["title-form"]}>Регистрация</div>
           <input
             type="text"
+            name="username"
+            value={regData.username}
             placeholder="Ваше имя"
             className={styles["form__input"]}
+            onChange={handleChange}
           />
           <input
             type="email"
-            value={email}
+            name="email"
+            value={regData.email}
             placeholder="Электронная почта"
             className={styles["form__input"]}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleChange}
           />
           <input
             type="password"
-            value={password}
+            name="password"
+            value={regData.password}
             placeholder="Пароль"
             className={styles["form__input"]}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
           />
           <button type="submit" className={styles["form__button"]}>
             Зарегистрироваться

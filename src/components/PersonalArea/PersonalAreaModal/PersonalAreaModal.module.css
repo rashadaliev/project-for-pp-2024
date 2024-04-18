@@ -1,0 +1,115 @@
+.modal-container {
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background: rgba(49, 207, 179, 0.5);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+}
+
+.modal-container.open {
+    display: flex;
+}
+.modal{
+    flex-direction: column;
+    display: flex;
+    height: 190px;
+    width: 700px;
+    background: #eee;
+    border-radius: 5px;
+    padding:30px 50px;
+}
+
+.container-button{
+    display: flex;
+    justify-content: flex-end;
+    gap:10px;
+    margin-top: 30px;
+}
+
+.modal-title{
+    font-weight: 700;
+    font-size: 24px;
+    color: #000;
+    margin: 0;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    
+}
+
+
+.header-left{
+    font-weight: 600;
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+}
+.header-right{
+    position: relative;
+    font-size: 15px;
+    margin: 0;
+}
+
+.header-right > svg{
+    position: absolute;
+    top: -7px;
+    left: -17px;
+    cursor: pointer;
+}
+
+
+.bold{
+    margin: 0;
+    font-weight: 700;
+}
+
+.header-right__text{
+    margin: 0;
+}
+
+.modal__input{
+    outline: transparent;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    margin-top: 20px;
+    border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+}
+
+.btn{
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    padding: 10px 15px;
+    background-color: #31cfb3;
+    border: #31cfb3;
+    cursor: pointer;
+    gap: 10px;
+    height: 35px;
+}
+
+.btn-close{
+    background-color: transparent;
+    border: 1px solid #31cfb3;
+    gap: 5px;
+}
+
+.btn__title{
+    font-weight: 500;
+    font-size: 13px;
+    color: #333;
+    margin: 0;
+}
+
+.btn-close__title{
+color: #31cfb3;
+}
+
+

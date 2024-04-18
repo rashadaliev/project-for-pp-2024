@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./StartedPageHeader.module.css";
 import { Link } from "react-router-dom";
-import logo from "../../../assets/k-small.png";
+import logo from "../../../assets/k-big-negative2.png";
 const StartedPageHeader = () => {
   return (
     <div className={`${styles.flex} ${styles["header-container"]}`}>
