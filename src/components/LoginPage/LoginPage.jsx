@@ -52,6 +52,8 @@ const LoginPage = () => {
       // response.data.username - выводит имя пользователя
       if (response.status == 200) {
         navigate("/projects");
+        const data = response.data;
+        localStorage.setItem("user", JSON.stringify(data));
       }
     } catch (error) {
       if (error.response.status === 404) {

@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import styles from "../PersonalAreaModal/PersonalAreaModal.module.css";
 import classNames from "classnames";
+import axios from "axios";
 const PersonalAreaModal = (props) => {
   const { openModal, closeModal, onAddSite } = props;
   const [siteName, setSiteName] = useState("");
-  const makeNewSite = () => {
-    onAddSite(siteName);
+  const makeNewSite = (siteName) => {
+    makeSite(siteName);
+    // onAddSite(siteName);
     setSiteName("");
     closeModal();
+  };
+  const makeSite = async (name) => {
+    await axios.post(`http://localhost:5231/api/Project`, {
+      master_Id: JSON.parse(localStorage.getItem("user")).client_id,
+      name: name,
+      discription: "",
+      content: "",
+    });
   };
   return (
     <div
@@ -68,7 +78,7 @@ const PersonalAreaModal = (props) => {
           <button
             className={`${styles["btn-make"]} ${styles.btn}`}
             disabled={!siteName}
-            onClick={makeNewSite}
+            onClick={() => makeNewSite(siteName)}
           >
             <svg
               width="15"

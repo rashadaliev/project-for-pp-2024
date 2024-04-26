@@ -1,6 +1,6 @@
 import React from "react";
-import whereis from "../../../../assets/siteslength0.png";
-import styles from "../WithoutSites/WithoutSites.module.css";
+import whereis from "../../../assets/siteslength0.png";
+import styles from "./WithoutSites.module.css";
 const WithoutSites = (props) => {
   const { setOpenModal } = props;
   return (

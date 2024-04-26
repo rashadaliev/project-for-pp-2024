@@ -1,8 +1,20 @@
 import React from "react";
 import styles from "../PersonalAreaMenu/PersonalAreaMenu.module.css";
 import classNames from "classnames";
+import ProfileMaster from "../../../ProfileMaster/ProfileMaster";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const PersonalAreaMenu = (props) => {
-  const { openMenu } = props;
+  const navigate = useNavigate();
+  const { openMenu, setSelectedSection } = props;
+  const exitPersonalArea = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+  const openPersonalArea = () => {
+    navigate("profile");
+    setSelectedSection("");
+  };
   return (
     <div
       className={classNames(styles["modal-container"], {
@@ -12,7 +24,9 @@ const PersonalAreaMenu = (props) => {
       <div className={styles.modal}>
         <ul className={styles.menu}>
           <li className={styles["menu-item"]}>
-            <p className={styles["menu-item__text"]}>Профиль</p>
+            <p className={styles["menu-item__text"]} onClick={openPersonalArea}>
+              Профиль
+            </p>
             <svg
               width="15"
               height="15"
@@ -44,7 +58,9 @@ const PersonalAreaMenu = (props) => {
             </svg>
           </li>
           <li className={styles["menu-item"]}>
-            <p className={styles["menu-item__text"]}>Выйти</p>
+            <p className={styles["menu-item__text"]} onClick={exitPersonalArea}>
+              Выйти
+            </p>
             <svg
               width="15"
               height="15"

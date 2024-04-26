@@ -3,12 +3,13 @@ import styles from "../PersonalAreaHeader/PersonalAreaHeader.module.css";
 import logo from "../../../assets/k-small.png";
 import avatarka from "../../../assets/avatarka.png";
 import strelka from "../../../assets/strelkadown.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import PersonalAreaMenu from "./PersonalAreaMenu/PersonalAreaMenu";
 import { useState } from "react";
-const PersonalAreaHeader = (props) => {
-  const { selectedSection, setSelectedSection } = props;
+const PersonalAreaHeader = () => {
+  const navigate = useNavigate();
+  const [selectedSection, setSelectedSection] = useState("Мой сайт");
   const sections = ["Мой сайт", "CRM"];
   const [openMenu, setOpenMenu] = useState(false);
   const checkMenu = () => {
@@ -16,6 +17,15 @@ const PersonalAreaHeader = (props) => {
       setOpenMenu(true);
     } else {
       setOpenMenu(false);
+    }
+  };
+  const handleClickSwitchPages = (sectionName) => {
+    if (sectionName === "Мой сайт") {
+      setSelectedSection(sectionName);
+      navigate(`/projects`);
+    } else if (sectionName === "CRM") {
+      setSelectedSection(sectionName);
+      navigate(`/crm`);
     }
   };
   return (
@@ -31,7 +41,9 @@ const PersonalAreaHeader = (props) => {
                 [styles["choosen-section"]]: section === selectedSection,
               })}
               key={section}
-              onClick={() => setSelectedSection(section)}
+              onClick={() => {
+                handleClickSwitchPages(section);
+              }}
             >
               {section}
             </div>
@@ -44,7 +56,10 @@ const PersonalAreaHeader = (props) => {
           <img src={strelka} alt="" />
         </div>
       </div>
-      <PersonalAreaMenu openMenu={openMenu}></PersonalAreaMenu>
+      <PersonalAreaMenu
+        openMenu={openMenu}
+        setSelectedSection={() => setSelectedSection("")}
+      ></PersonalAreaMenu>
     </div>
   );
 };
