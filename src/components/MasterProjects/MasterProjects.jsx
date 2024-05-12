@@ -4,10 +4,23 @@ import { useState } from "react";
 import classNames from "classnames";
 import WithoutSites from "./WithoutSites/WithoutSites";
 import PersonalAreaModal from "../PersonalArea/PersonalAreaModal/PersonalAreaModal";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import TemplateSelection from "../TemplateSelection/TemplateSelection";
 import axios from "axios";
 const MasterProjects = () => {
+  const location = useLocation();
+  const cards = location.state?.cards;
+  const handleClick = () => {
+    const queryString = new URLSearchParams({
+      cards: JSON.stringify(cards),
+    }).toString();
+    const url = `/konstruct?${queryString}`;
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    // if (!newWindow) {
+    //   navigate("/konstruct", { state: { cards: cards } });
+    // }
+  };
+  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [sites, setSites] = useState([]);
   //работает лишь пока с одним сайтом
@@ -20,18 +33,13 @@ const MasterProjects = () => {
     if (response.data.name === undefined) {
       return;
     }
-    setSites([response.data.name]);
+    setSites([response.data]);
   };
   // при начале
   useEffect(() => {
     fetchSites();
   }, []);
-  // при создании в модалке сайта
-  useEffect(() => {
-    if (!openModal) {
-      fetchSites();
-    }
-  }, [openModal]);
+
   const [editing, setEditing] = useState({
     isEditing: false,
     siteName: "",
@@ -43,9 +51,7 @@ const MasterProjects = () => {
       siteName: siteName,
     }));
   };
-  const addSite = (siteName) => {
-    setSites([...sites, siteName]);
-  };
+
   const deleteSite = (index) => {
     setSites(sites.filter((_, i) => i !== index));
   };
@@ -109,7 +115,11 @@ const MasterProjects = () => {
       >
         {sites.length !== 0 ? (
           editing.isEditing ? (
-            <TemplateSelection></TemplateSelection>
+            sites[0].description === null ? (
+              <TemplateSelection nameSite={sites[0].name}></TemplateSelection>
+            ) : (
+              navigate(`/projects/${sites[0].description.replace(/\s+/g, "")}`)
+            )
           ) : (
             sites.map((site, index) => (
               <div key={index} className={styles["card-site"]}>
@@ -127,15 +137,20 @@ const MasterProjects = () => {
                     />
                   </svg>
                 </button>
-                <p className={styles["card-site__title"]}>{site}</p>
+                <p className={styles["card-site__title"]}>{site.name}</p>
                 <div className={styles["card-site__footer"]}>
                   <button
                     className={styles["footer-menu__el"]}
-                    onClick={() => editClick(site)}
+                    onClick={() => editClick(site.name)}
                   >
                     Редактировать
                   </button>
-                  <Link className={styles["footer-menu__el"]}>Перейти</Link>
+                  <button
+                    className={styles["footer-menu__el"]}
+                    onClick={handleClick}
+                  >
+                    Перейти
+                  </button>
                   <button
                     className={`${styles["footer-menu__el"]} ${styles["delete-button"]}`}
                     onClick={() => deleteSite(index)}
@@ -153,7 +168,7 @@ const MasterProjects = () => {
       <PersonalAreaModal
         openModal={openModal}
         closeModal={() => setOpenModal(false)}
-        onAddSite={addSite}
+        onSiteCreated={fetchSites}
       ></PersonalAreaModal>
     </div>
   );

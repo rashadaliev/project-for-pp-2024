@@ -7,9 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import PersonalAreaMenu from "./PersonalAreaMenu/PersonalAreaMenu";
 import { useState } from "react";
-const PersonalAreaHeader = () => {
+const PersonalAreaHeader = (props) => {
+  const { selectedSection, setSelectedSection } = props;
   const navigate = useNavigate();
-  const [selectedSection, setSelectedSection] = useState("Мой сайт");
+  //сделать смену белого цвета снизу
+
   const sections = ["Мой сайт", "CRM"];
   const [openMenu, setOpenMenu] = useState(false);
   const checkMenu = () => {

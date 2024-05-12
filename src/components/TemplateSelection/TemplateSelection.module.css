@@ -32,6 +32,11 @@
     color: #fff;
     font-size: 24px;
 }
+.template__footer-text_left{
+    margin: 0;
+    color: #fff;
+    font-size: 20px;
+}
 
 .text-bold{
     font-weight: 600;

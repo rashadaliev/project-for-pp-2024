@@ -1,0 +1,7 @@
+.card-edit-container{
+    display: flex;
+    flex-direction: column;
+    background-color: #efefef;
+    padding: 40px;
+    margin: 10px 0px;
+}

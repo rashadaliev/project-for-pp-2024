@@ -3,11 +3,12 @@ import styles from "../PersonalAreaModal/PersonalAreaModal.module.css";
 import classNames from "classnames";
 import axios from "axios";
 const PersonalAreaModal = (props) => {
-  const { openModal, closeModal, onAddSite } = props;
+  const { openModal, closeModal, onSiteCreated } = props;
   const [siteName, setSiteName] = useState("");
   const makeNewSite = (siteName) => {
-    makeSite(siteName);
-    // onAddSite(siteName);
+    makeSite(siteName).then(() => {
+      onSiteCreated();
+    });
     setSiteName("");
     closeModal();
   };

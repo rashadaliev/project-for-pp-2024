@@ -1,0 +1,159 @@
+.modal-container {
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    background: rgba(49, 207, 179, 0.5);;
+}
+.modal-container.open {
+    display: flex;
+}
+
+.modal{
+    flex-direction: column;
+    display: flex;
+    max-width: 560px;
+    width: 100%;
+    min-height: 300px;
+    padding: 40px;
+    background: white;
+    overflow-y: auto;
+}
+
+.cartwin-heading{
+    margin: 0;
+    font-size: 24px;
+    padding: 0 0 30px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
+.cartwin-products{
+    display: table;
+    width: 100%;
+}
+
+
+.product{
+    display: table;
+    width: 100%;
+    height: 50px;
+    vertical-align: middle;
+}
+
+.product-thumb{
+    display: table-cell;
+    width: 70px;
+    height: 100px;
+    padding-right: 20px;
+    vertical-align: middle;
+}
+
+.product-img{
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+    border-radius: 7px;
+}
+
+.product-title{
+    display: table-cell;
+    font-size: 16px;
+    padding: 15px 0;
+    
+    vertical-align: middle;
+    color: #000;
+}
+
+.product-plusminus{
+    display: table-cell;
+    width: 80px;
+    padding: 13px 20px 16px;
+    padding-left: 10px;
+    vertical-align: middle;
+    color: #000;
+    white-space: nowrap;
+}
+
+.product-minus, .product-plus{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    opacity: 4;
+    width: 16px;
+    height: 16px;
+}
+
+.product-quantity{
+    font-size: 16px;
+    line-height: 16px;
+    margin: 0 5px;
+    padding: 2px 5px;
+    color: #000;
+    border: 1px solid rgba(0,0,0,0)
+}
+
+.product-amount{
+    display: table-cell;
+    width: 80px;
+    font-size: 16px;
+    padding: 15px 0;
+    vertical-align: middle;
+    color: #000;
+    white-space: nowrap;
+}
+
+.prodamount-price, .prodamount-currency{
+    display: inline-block;
+}
+
+.prodamount-currency::before{
+    content: "";
+    padding-left: 5px;
+}
+
+
+.product-del-wrapper{
+    display: table-cell;
+    width: 20px;
+    padding: 15px 0 15px 15px;
+    vertical-align: middle;
+}
+
+.product-del{
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+.cartwin-bottom{
+    padding-top: 30px;
+    border-top: 1px solid rgba(0, 0, 0, .2)
+}
+
+.cartwin-prodamount-wrap{
+    display: block;
+    padding-bottom: 20px;
+    font-size: 16px;
+    text-align: right;
+    
+    color: #000
+}
+
+.cartwin-prodamount-label{
+    font-weight: 600;
+}
+
+.orderform-cont{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.orderform{
+    display: flex;
+    flex-direction: column;
+}

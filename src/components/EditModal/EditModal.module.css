@@ -1,0 +1,20 @@
+.modal-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+}
+.modal-container.open {
+    display: flex;
+}
+
+.modal{
+    flex-direction: column;
+    display: flex;
+    min-width: 305px;
+    background: orange;
+    overflow-y: auto;
+    
+}
