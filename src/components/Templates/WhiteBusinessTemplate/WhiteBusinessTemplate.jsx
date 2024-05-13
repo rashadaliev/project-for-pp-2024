@@ -25,6 +25,22 @@ const WhiteBusinessTemplate = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [cartCount, setCartCount] = useState(0);
   const [goods, setGoods] = useState([]);
+  const [info, setInfo] = useState({
+    title: "Заголовок",
+    description:
+      "Наш магазин продаёт товары только из качесвтенных переработанных материалов. Мы уважаем природу и стремимся поменять мир к лучшему, поэтому 5% с каждой продажи идут в фонд помощи Детям Рашадам",
+  });
+  const [links, setLinks] = useState({
+    title: "Будьте с нами на связи",
+    tg: "#",
+    vk: "#",
+  });
+  const [footer, setFooter] = useState({
+    image: null,
+    mail: "konstruct@mail.ru",
+    hrefMail: "mailto:konstruct@mail.ru",
+    textArea: "",
+  });
   const [cards, setCards] = useState([
     {
       id: 1,
@@ -38,7 +54,8 @@ const WhiteBusinessTemplate = () => {
   useEffect(() => {
     const html = document.getElementById("white-business-template").innerHTML;
     setHtmlContent(html);
-  }, [cards, uploadedImage]);
+  }, [cards, uploadedImage, info, links, footer]);
+
   const getProjectDetails = async () => {
     const response = await axios.get(
       `http://localhost:5231/api/Project?Master_id=${
@@ -212,60 +229,59 @@ const WhiteBusinessTemplate = () => {
           ))}
         </div>
       </HoverableBlock>
-      <HoverableBlock>
+      <HoverableBlock setOpenModal={() => handleOpenModal(true, "block-info")}>
         <div className={styles["block-info"]}>
-          <h3 className={styles["block-info__title"]}>Заголовок</h3>
-          <p className={styles["block-info__desc"]}>
-            Наш магазин продаёт товары только из качесвтенных переработанных
-            материалов. Мы уважаем природу и стремимся поменять мир к лучшему,
-            поэтому 5% с каждой продажи идут в фонд помощи “Детям Рашадам”
-          </p>
+          <h3 className={styles["block-info__title"]}>{info.title}</h3>
+          <p className={styles["block-info__desc"]}>{info.description}</p>
         </div>
       </HoverableBlock>
-      <HoverableBlock>
+      <HoverableBlock setOpenModal={() => handleOpenModal(true, "block-links")}>
         <div className={styles["block-contacts"]}>
-          <h3 className={styles["block-contacts__title"]}>
-            Будьте с нами на связи
-          </h3>
+          <h3 className={styles["block-contacts__title"]}>{links.title}</h3>
           <div className={styles["container-contacts"]}>
-            <Link to="#">
+            <Link to={links.tg} target="_blank">
               <img src={telega} alt="" className={styles["contacts-telega"]} />
             </Link>
-            <Link to="#">
+            <Link to={links.vk} target="_blank">
               <img src={vk} alt="" className={styles["contacts-vk"]} />
             </Link>
           </div>
         </div>
       </HoverableBlock>
       <hr style={{ height: "30px", border: "none" }} />
-      <div className={styles["block-footer"]}>
-        <HoverableBlock
-          setOpenModal={() => handleOpenModal(true, "block-header")}
-        >
-          <div className={styles["block-header"]} data-id={"block-header"}>
+      <HoverableBlock
+        setOpenModal={() => handleOpenModal(true, "block-footer")}
+      >
+        <div className={styles["block-footer"]}>
+          <div data-id={"block-footer-logo"}>
             <img
-              src={uploadedImage ? uploadedImage : logoTemplates}
+              src={footer.image ? footer.image : logoTemplates}
               alt=""
-              style={{ maxWidth: "100px", maxHeight: "100px" }}
+              style={{
+                maxWidth: "100px",
+                maxHeight: "100px",
+                textAlign: "center",
+              }}
             />
           </div>
-        </HoverableBlock>
-        <a href="mailto:konstruct@mail.ru" className={styles["footer__mail"]}>
-          konstruct@mail.ru
-        </a>
-        <textarea
-          className={styles["footer-textarea"]}
-          name=""
-          id=""
-          cols="50"
-          rows="10"
-          placeholder="Любой текст, в любых количествах"
-        ></textarea>
-        <button style={{ background: "transparent", border: "none" }}>
-          <img src={btn_reverse} alt="" />
-        </button>
-      </div>
 
+          <a href={footer.hrefMail} className={styles["footer__mail"]}>
+            {footer.mail}
+          </a>
+          <textarea
+            className={styles["footer-textarea"]}
+            name=""
+            id=""
+            cols="50"
+            rows="10"
+            placeholder="Любой текст, в любых количествах"
+            value={footer.textArea}
+          ></textarea>
+          <button style={{ background: "transparent", border: "none" }}>
+            <img src={btn_reverse} alt="" />
+          </button>
+        </div>
+      </HoverableBlock>
       <EditModal
         openModal={openModal}
         close={() => setOpenModal(false)}
@@ -273,6 +289,12 @@ const WhiteBusinessTemplate = () => {
         selectedElementId={selectedElementId}
         cards={cards}
         setCards={setCards}
+        info={info}
+        setInfo={setInfo}
+        links={links}
+        setLinks={setLinks}
+        footer={footer}
+        setFooter={setFooter}
       ></EditModal>
       <ModalCart
         openCartModal={openCartModal}

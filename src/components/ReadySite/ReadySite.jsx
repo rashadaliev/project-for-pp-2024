@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import ModalCart from "../Templates/WhiteBusinessTemplate/ModalCart/ModalCart";
 import { useLocation } from "react-router-dom";
+import ModalCard from "../ModalCard/ModalCard";
 const ReadySite = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -11,10 +12,29 @@ const ReadySite = () => {
   const [goods, setGoods] = useState([]);
   const [siteContent, setSiteContent] = useState(null);
   const [openCartModal, setOpenCartModal] = useState(false);
+  const [openCardModal, setOpenCardModal] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
   const handleCartClick = () => {
     setOpenCartModal(true);
   };
+  const handleCardClick = (event) => {
+    console.log(event.target.classList);
+    if (
+      event.target.classList.contains("card__btn-title") ||
+      event.target.classList.contains("card__btn-buy")
+    ) {
+      return;
+    }
+    setOpenCardModal(true);
 
+    const cardId = event.currentTarget.getAttribute("data-id");
+    setSelectedCard({
+      name: cards[cardId - 1].name,
+      image: cards[cardId - 1].image,
+      price: cards[cardId - 1].price,
+      desc: cards[cardId - 1].desc,
+    });
+  };
   const addToCart = (id, name, price, image, desc) => {
     setCartCount(cartCount + 1);
     if (goods[id - 1]) {
@@ -46,6 +66,12 @@ const ReadySite = () => {
 
       const parser = new DOMParser();
       const doc = parser.parseFromString(response.data.content, "text/html");
+      //замена textArea на span
+      const textArea = doc.querySelector("._footer-textarea_43fqa_281");
+      const newSpanForReplace = doc.createElement("span");
+      newSpanForReplace.textContent = textArea.value;
+      textArea.parentNode.replaceChild(newSpanForReplace, textArea);
+
       const elementsToRemove = doc.querySelectorAll(
         "._modal-container_r0u9z_1._open_r0u9z_17, .btn-ready"
       );
@@ -100,6 +126,15 @@ const ReadySite = () => {
       const updatedHtml = serializer.serializeToString(doc);
 
       setSiteContent(updatedHtml);
+      const cardsElements = document.querySelectorAll(".card");
+      cardsElements.forEach((cardEl) => {
+        cardEl.addEventListener("click", handleCardClick);
+      });
+      return () => {
+        cardsElements.forEach((cardEl) => {
+          cardEl.removeEventListener("click", handleCardClick);
+        });
+      };
     };
 
     fetchSite();
@@ -118,10 +153,6 @@ const ReadySite = () => {
       cartCountSpan.textContent = cartCount.toString();
       btnCartRelative.replaceChild(cartCountSpan, btnCartRelative.children[1]);
     }
-
-    // btnCartRelative.childNodes[1].innerHTML(`
-    //
-    // `);
   }, [siteContent, cartCount]);
 
   useEffect(() => {
@@ -156,6 +187,11 @@ const ReadySite = () => {
         cartCount={cartCount}
         setCartCount={setCartCount}
       ></ModalCart>
+      <ModalCard
+        openCardModal={openCardModal}
+        close={() => setOpenCardModal(false)}
+        card={selectedCard}
+      ></ModalCard>
     </>
   );
 };

@@ -3,9 +3,24 @@ import classNames from "classnames";
 import styles from "../EditModal/EditModal.module.css";
 import EditHeader from "./EditHeader/EditHeader";
 import EditCards from "./EditCards/EditCards";
+import EditAboutStore from "./EditAboutStore/EditAboutStore";
+import EditLinks from "./EditLinks/EditLinks";
+import EditFooter from "./EditFooter/EditFooter";
 const EditModal = (props) => {
-  const { openModal, close, updateImage, selectedElementId, cards, setCards } =
-    props;
+  const {
+    openModal,
+    close,
+    updateImage,
+    selectedElementId,
+    cards,
+    setCards,
+    info,
+    setInfo,
+    links,
+    setLinks,
+    footer,
+    setFooter,
+  } = props;
 
   const renderEditForm = () => {
     switch (selectedElementId) {
@@ -13,6 +28,12 @@ const EditModal = (props) => {
         return <EditHeader updateImage={updateImage}></EditHeader>;
       case "block-cards":
         return <EditCards cards={cards} setCards={setCards}></EditCards>;
+      case "block-info":
+        return <EditAboutStore info={info} setInfo={setInfo}></EditAboutStore>;
+      case "block-links":
+        return <EditLinks links={links} setLinks={setLinks}></EditLinks>;
+      case "block-footer":
+        return <EditFooter footer={footer} setFooter={setFooter}></EditFooter>;
       default:
         return "";
     }
