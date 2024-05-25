@@ -11,6 +11,7 @@ import MasterCRM from "./components/MasterCRM/MasterCRM";
 import BlackRapTemplate from "./components/Templates/BlackRapTemplate/BlackRapTemplate";
 import WhiteBusinessTemplate from "./components/Templates/WhiteBusinessTemplate/WhiteBusinessTemplate";
 import ReadySite from "./components/ReadySite/ReadySite";
+import OrderCRM from "./components/MasterCRM/OrderCRM/OrderCRM";
 import { useLocation } from "react-router-dom";
 const App = () => {
   const [selectedSection, setSelectedSection] = useState();
@@ -45,6 +46,7 @@ const App = () => {
           element={<WhiteBusinessTemplate />}
         ></Route>
         <Route path="/konstruct" element={<ReadySite></ReadySite>}></Route>
+        <Route path="/order" element={<OrderCRM></OrderCRM>}></Route>
       </Routes>
     </>
   );

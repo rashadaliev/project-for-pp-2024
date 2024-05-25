@@ -13,13 +13,16 @@ const PersonalAreaModal = (props) => {
     closeModal();
   };
   const makeSite = async (name) => {
-    await axios.post(`http://localhost:5231/api/Project`, {
+    const response = await axios.post(`http://localhost:5231/api/Project`, {
       master_Id: JSON.parse(localStorage.getItem("user")).client_id,
       name: name,
       discription: "",
       content: "",
     });
+    const data = response.data;
+    localStorage.setItem("projectId", JSON.stringify(data));
   };
+
   return (
     <div
       className={classNames(styles["modal-container"], {

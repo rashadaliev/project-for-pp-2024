@@ -277,9 +277,6 @@ const WhiteBusinessTemplate = () => {
             placeholder="Любой текст, в любых количествах"
             value={footer.textArea}
           ></textarea>
-          <button style={{ background: "transparent", border: "none" }}>
-            <img src={btn_reverse} alt="" />
-          </button>
         </div>
       </HoverableBlock>
       <EditModal
@@ -296,14 +293,14 @@ const WhiteBusinessTemplate = () => {
         footer={footer}
         setFooter={setFooter}
       ></EditModal>
-      <ModalCart
+      {/* <ModalCart
         openCartModal={openCartModal}
         close={() => setOpenCartModal(false)}
         goods={goods}
         setGoods={setGoods}
         cartCount={cartCount}
         setCartCount={setCartCount}
-      ></ModalCart>
+      ></ModalCart> */}
     </div>
   );
 };

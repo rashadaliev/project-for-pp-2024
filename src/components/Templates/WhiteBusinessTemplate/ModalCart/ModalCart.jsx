@@ -5,20 +5,45 @@ import minus from "../../../../assets/arrows_circle_minus.svg";
 import plus from "../../../../assets/arrows_circle_plus.svg";
 import del from "../../../../assets/arrows_circle_remove.svg";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import axios from "axios";
 const ModalCart = (props) => {
   const { openCartModal, close, goods, setGoods, setCartCount, cartCount } =
     props;
   const [formData, setFormData] = useState({
-    amount: 3,
-    productName: "",
-    clientEmail: "",
     clientName: "",
-    project_Id: 2,
+    clientEmail: "",
+    phone: "",
+    adress: "",
+    comment: "",
+    amount: 0,
+    productName: "",
+    project_Id: localStorage.getItem("projectId"),
   });
+  const calculateAmount = () => {
+    return goods.reduce((acc, item) => acc + +item.price * item.count, 0);
+  };
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      amount: calculateAmount(),
+    }));
+  }, [goods]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.post(`http://localhost:5231/api/Deal`, formData);
+    setFormData({
+      clientName: "",
+      clientEmail: "",
+      phone: "",
+      adress: "",
+      comment: "",
+      amount: 0,
+      productName: "",
+      project_Id: localStorage.getItem("projectId"),
+    });
+    setCartCount(0);
     close();
   };
   const handleChange = (e) => {
@@ -134,7 +159,7 @@ const ModalCart = (props) => {
                 Сумма:{" "}
               </span>
               <span className={styles["cartwin-prodamount"]}>
-                {goods.reduce((acc, item) => acc + +item.price * item.count, 0)}
+                {formData.amount}
               </span>
             </div>
           </div>
@@ -163,25 +188,25 @@ const ModalCart = (props) => {
                 type="text"
                 id="phone"
                 name="phone"
-                // onChange={handleChange}
-                // value={formData.phone}
+                onChange={handleChange}
+                value={formData.phone}
               />
 
-              <label htmlFor="address">Адрес доставки</label>
+              <label htmlFor="adress">Адрес доставки</label>
               <input
                 type="text"
-                id="address"
-                name="address"
-                // onChange={handleChange}
-                // value={formData.address}
+                id="adress"
+                name="adress"
+                onChange={handleChange}
+                value={formData.adress}
               />
 
               <label htmlFor="comment">Комментарий</label>
               <textarea
                 id="comment"
                 name="comment"
-                // onChange={handleChange}
-                // value={formData.comment}
+                onChange={handleChange}
+                value={formData.comment}
               ></textarea>
 
               <div className={styles["cartwin-prodamount-wrap"]}>
@@ -189,10 +214,7 @@ const ModalCart = (props) => {
                   Сумма:{" "}
                 </span>
                 <span className={styles["cartwin-prodamount"]}>
-                  {goods.reduce(
-                    (acc, item) => acc + +item.price * item.count,
-                    0
-                  )}
+                  {formData.amount}
                 </span>
               </div>
               <button type="submit">Оформить заказ</button>

@@ -18,7 +18,6 @@ const ReadySite = () => {
     setOpenCartModal(true);
   };
   const handleCardClick = (event) => {
-    console.log(event.target.classList);
     if (
       event.target.classList.contains("card__btn-title") ||
       event.target.classList.contains("card__btn-buy")
@@ -69,6 +68,9 @@ const ReadySite = () => {
       //замена textArea на span
       const textArea = doc.querySelector("._footer-textarea_43fqa_281");
       const newSpanForReplace = doc.createElement("span");
+      newSpanForReplace.style.color = "#fff";
+      newSpanForReplace.style.fontSize = "32px";
+      newSpanForReplace.style.fontWeight = "500";
       newSpanForReplace.textContent = textArea.value;
       textArea.parentNode.replaceChild(newSpanForReplace, textArea);
 

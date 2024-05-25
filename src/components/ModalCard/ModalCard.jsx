@@ -15,7 +15,7 @@ const ModalCard = (props) => {
         <div>{card.desc}</div>
         <div>{card.price}</div>
         <div>
-          <img src={card.image} alt="" />
+          <img src={card.image} alt="" width="250px" height="250px" />
         </div>
       </div>
     </div>
