@@ -32,7 +32,14 @@ const ModalCart = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(`http://localhost:5231/api/Deal`, formData);
+    const productName = goods.map((good) => good.name).join(" ");
+
+    // Обновляем formData с новым productName
+    const updatedFormData = {
+      ...formData,
+      productName: productName,
+    };
+    await axios.post(`http://localhost:5231/api/Deal`, updatedFormData);
     setFormData({
       clientName: "",
       clientEmail: "",

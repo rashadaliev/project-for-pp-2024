@@ -13,19 +13,38 @@ import WhiteBusinessTemplate from "./components/Templates/WhiteBusinessTemplate/
 import ReadySite from "./components/ReadySite/ReadySite";
 import OrderCRM from "./components/MasterCRM/OrderCRM/OrderCRM";
 import { useLocation } from "react-router-dom";
+import ArchivePage from "./components/ArchivePage/ArchivePage";
+import HeaderCRM from "./components/MasterCRM/HeaderCRM/HeaderCRM";
+import StatisticPage from "./components/StatisticPage/StatisticPage";
 const App = () => {
   const [selectedSection, setSelectedSection] = useState();
   const location = useLocation();
   const pathsToExcludeFromHeader = ["/konstruct"];
+  const pathToIncludeForCrmHeader = ["/crm", "/archive", "/statistic"];
+  const pathsToExcludePersonalAreaHeader = ["/", "/registration", "/login"];
   return (
     <>
       {!localStorage.length ||
-        (!pathsToExcludeFromHeader.includes(location.pathname) && (
-          <PersonalAreaHeader
-            selectedSection={selectedSection}
-            setSelectedSection={setSelectedSection}
-          />
-        ))}
+      !pathsToExcludeFromHeader.includes(location.pathname) ? (
+        pathToIncludeForCrmHeader.includes(location.pathname) ? (
+          <>
+            <PersonalAreaHeader
+              selectedSection={selectedSection}
+              setSelectedSection={setSelectedSection}
+            />
+            <HeaderCRM />
+          </>
+        ) : (
+          <>
+            {!pathsToExcludePersonalAreaHeader.includes(location.pathname) && (
+              <PersonalAreaHeader
+                selectedSection={selectedSection}
+                setSelectedSection={setSelectedSection}
+              />
+            )}
+          </>
+        )
+      ) : null}
       <Routes>
         {localStorage.length != 0 ? (
           <Route path="/projects" element={<MasterProjects></MasterProjects>} />
@@ -40,6 +59,8 @@ const App = () => {
           path="/crm"
           element={<MasterCRM setSelectedSection={setSelectedSection} />}
         ></Route>
+        <Route path="/statistic" element={<StatisticPage />}></Route>
+        <Route path="/archive" element={<ArchivePage></ArchivePage>}></Route>
         <Route path="/projects/BlackRap" element={<BlackRapTemplate />}></Route>
         <Route
           path="/projects/WhiteBusiness"

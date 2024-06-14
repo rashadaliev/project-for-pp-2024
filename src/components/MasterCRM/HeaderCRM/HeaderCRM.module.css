@@ -1,0 +1,13 @@
+.CRM-header{
+    display: flex;
+    gap: 10px;
+}
+.CRM-header p {
+    margin: 0 auto;
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.CRM-header p.active {
+    color: red; 
+  }

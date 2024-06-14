@@ -5,10 +5,16 @@ import galka from "../../assets/galka.png";
 import musor from "../../assets/musor.png";
 import { useNavigate } from "react-router-dom";
 import styles from "../MasterCRM/MasterCRM.module.css";
+import PopUpArchive from "../PopUpArchive/PopUpArchive";
+import HeaderCRM from "./HeaderCRM/HeaderCRM";
 const MasterCRM = (props) => {
   const { setSelectedSection } = props;
   const [stateCRM, setStateCRM] = useState("");
   const [orders, setOrders] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [statusToArchive, setStatusToArchive] = useState("positive");
+  const activeOrders = orders.filter((order) => order.isArchive === false);
   const navigate = useNavigate();
   const openOrder = (number) => {
     navigate("/order", {
@@ -35,12 +41,29 @@ const MasterCRM = (props) => {
     );
     setOrders(response.data);
   };
+
+  const handleChangeStatus = async (orderId, newStatus) => {
+    await axios.patch("http://localhost:5231/api/Deal/Status", {
+      dealId: orderId,
+      status: newStatus,
+    });
+    fetchOrders();
+  };
+
+  const handleStatusChange = (event, orderId) => {
+    const newStatus = event.target.value;
+    setSelectedStatus(newStatus);
+    handleChangeStatus(orderId, newStatus);
+  };
   const checkCRM = (stateCRM) => stateCRM === "Have site";
   useEffect(() => {
     setSelectedSection("CRM");
     fetchSites();
     fetchOrders();
   }, []);
+
+  //сделать при клике на Архив переход на архив, в котором отображеются заявки из ВАУ архива
+  // Сделать отображение в Статистике Общее кол-во заявок,Кол-во отменённых заявок, Самый продаваемый товар(в данный промежуток времени)
 
   return (
     <>
@@ -113,7 +136,6 @@ const MasterCRM = (props) => {
                 Статус
               </th>
               <th
-                colSpan="2"
                 style={{
                   padding: "10px",
                   fontWeight: 700,
@@ -124,7 +146,7 @@ const MasterCRM = (props) => {
             </tr>
           </thead>
           <tbody className={styles["tbody-table"]}>
-            {orders.map((order, index) => (
+            {activeOrders.map((order, index) => (
               <tr
                 key={order.id}
                 onClick={() => openOrder(order.id)}
@@ -145,27 +167,31 @@ const MasterCRM = (props) => {
                     onClick={(e) => {
                       e.stopPropagation();
                     }}
+                    value={order.status}
+                    onChange={(e) => handleStatusChange(e, order.id)}
                   >
-                    <option value="" selected>
-                      {order.status}
-                    </option>
-                    <option value="">Оплачено</option>
-                    <option value="">В работе</option>
-                    <option value="">В пути</option>
-                    <option value="">Доставлено</option>
+                    <option value="Создан">Создан</option>
+                    <option value="Оплачено">Оплачено</option>
+                    <option value="В работе">В работе</option>
+                    <option value="В пути">В пути</option>
+                    <option value="Доставлено">Доставлено</option>
                   </select>
                 </td>
                 <td
-                  colSpan="2"
                   style={{
                     padding: "10px",
-                    display: "flex",
-                    justifyContent: "flex-end",
                   }}
                 >
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
+                      // Cделать проверку на статус(если он не равен Сделано), то
+                      if (order.status !== "Доставлено") {
+                        setStatusToArchive("negative");
+                      } else {
+                        setStatusToArchive("positive");
+                      }
+                      setOpenModal(true);
                     }}
                     style={{
                       background: "inherit",
@@ -173,21 +199,15 @@ const MasterCRM = (props) => {
                       cursor: "pointer",
                     }}
                   >
-                    <img src={galka} alt="" />
+                    В архив
                   </button>
-                  <button
-                    className=""
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                    style={{
-                      background: "inherit",
-                      border: "inherit",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <img src={musor} alt="" />
-                  </button>
+                  <PopUpArchive
+                    openModal={openModal}
+                    close={() => setOpenModal(false)}
+                    statusArchive={statusToArchive}
+                    orderId={order.id}
+                    fetchOrders={fetchOrders}
+                  ></PopUpArchive>
                 </td>
               </tr>
             ))}
