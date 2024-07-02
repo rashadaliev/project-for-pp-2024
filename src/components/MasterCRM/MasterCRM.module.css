@@ -29,4 +29,14 @@
   background-color: #31cfb3;
 }
 
+.filters{
+    text-align: center;
+}
+
+.filters p{
+    margin: 0;
+    font-size: 20px;
+    
+}
+
 

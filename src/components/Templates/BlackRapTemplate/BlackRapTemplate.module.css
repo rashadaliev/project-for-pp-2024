@@ -1,0 +1,36 @@
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    background-color: #FEF6E4;
+}
+
+.block-header{
+  text-align: center;
+}
+
+.card__desc,.card__price, .card__btn-buy{
+  text-align: center;
+}
+
+.new-price{
+  margin-right: 10px;
+}
+
+.card__btn-buy{
+  display: flex;
+  border-radius: 10px;
+  padding: 10px 15px;
+  background: #31cfb3;
+  max-height: 35px;
+  max-width: 109px;
+  align-items: center;
+  border: #31cfb3;
+  margin: 0;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+
+
+  
+

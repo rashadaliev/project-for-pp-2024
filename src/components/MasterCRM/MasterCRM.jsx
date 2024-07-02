@@ -68,151 +68,163 @@ const MasterCRM = (props) => {
   return (
     <>
       {checkCRM(stateCRM) ? (
-        <table
-          style={{
-            textAlign: "center",
-            margin: "50px auto",
-            background: "#31cfb3",
-            boxShadow: "0 0 5px 0 rgba(0, 0, 0, 0.25)",
-            borderSpacing: 0,
-            width: "1100px",
-          }}
-        >
-          <thead>
-            <tr>
-              <th
-                scope="col"
-                style={{
-                  padding: "10px",
-                  fontWeight: 700,
-                  fontSize: "20px",
-                  color: "#000",
-                }}
-              >
-                Заявка
-              </th>
-              <th
-                scope="col"
-                style={{
-                  padding: "10px",
-                  fontWeight: 700,
-                  fontSize: "20px",
-                  color: "#000",
-                }}
-              >
-                Дата
-              </th>
-              <th
-                scope="col"
-                style={{
-                  padding: "10px",
-                  fontWeight: 700,
-                  fontSize: "20px",
-                  color: "#000",
-                }}
-              >
-                ФИО
-              </th>
-              <th
-                scope="col"
-                style={{
-                  padding: "10px",
-                  fontWeight: 700,
-                  fontSize: "20px",
-                  color: "#000",
-                }}
-              >
-                Сумма
-              </th>
-              <th
-                scope="col"
-                style={{
-                  padding: "10px",
-                  fontWeight: 700,
-                  fontSize: "20px",
-                  color: "#000",
-                }}
-              >
-                Статус
-              </th>
-              <th
-                style={{
-                  padding: "10px",
-                  fontWeight: 700,
-                  fontSize: "20px",
-                  color: "#000",
-                }}
-              ></th>
-            </tr>
-          </thead>
-          <tbody className={styles["tbody-table"]}>
-            {activeOrders.map((order, index) => (
-              <tr
-                key={order.id}
-                onClick={() => openOrder(order.id)}
-                className={styles["rows-table"]}
-              >
-                <th scope="row" style={{ padding: "10px" }}>
-                  {index + 1}
-                </th>
-                <td style={{ padding: "10px" }}>
-                  {order.created.split("T")[0].split("-").reverse().join(".")}
-                </td>
-                <td style={{ padding: "10px" }}>{order.client.name}</td>
-                <td style={{ padding: "10px" }}>{order.amount}</td>
-                <td style={{ padding: "10px" }}>
-                  <select
-                    name=""
-                    id=""
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                    value={order.status}
-                    onChange={(e) => handleStatusChange(e, order.id)}
-                  >
-                    <option value="Создан">Создан</option>
-                    <option value="Оплачено">Оплачено</option>
-                    <option value="В работе">В работе</option>
-                    <option value="В пути">В пути</option>
-                    <option value="Доставлено">Доставлено</option>
-                  </select>
-                </td>
-                <td
+        <div>
+          <div className={styles["filters"]}>
+            <p>Фильтры</p>
+            <select name="" id="">
+              <option value="Создан фильтр">Создан</option>
+              <option value="Оплачено фильтр">Оплачено</option>
+              <option value="В работе фильтр">В работе</option>
+              <option value="В пути фильтр">В пути</option>
+              <option value="Доставлено фильтр">Доставлено</option>
+            </select>
+          </div>
+          <table
+            style={{
+              textAlign: "center",
+              margin: "10px auto 50px",
+              background: "#31cfb3",
+              boxShadow: "0 0 5px 0 rgba(0, 0, 0, 0.25)",
+              borderSpacing: 0,
+              width: "1100px",
+            }}
+          >
+            <thead>
+              <tr>
+                <th
+                  scope="col"
                   style={{
                     padding: "10px",
+                    fontWeight: 700,
+                    fontSize: "20px",
+                    color: "#000",
                   }}
                 >
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      // Cделать проверку на статус(если он не равен Сделано), то
-                      if (order.status !== "Доставлено") {
-                        setStatusToArchive("negative");
-                      } else {
-                        setStatusToArchive("positive");
-                      }
-                      setOpenModal(true);
-                    }}
+                  Заявка
+                </th>
+                <th
+                  scope="col"
+                  style={{
+                    padding: "10px",
+                    fontWeight: 700,
+                    fontSize: "20px",
+                    color: "#000",
+                  }}
+                >
+                  Дата
+                </th>
+                <th
+                  scope="col"
+                  style={{
+                    padding: "10px",
+                    fontWeight: 700,
+                    fontSize: "20px",
+                    color: "#000",
+                  }}
+                >
+                  ФИО
+                </th>
+                <th
+                  scope="col"
+                  style={{
+                    padding: "10px",
+                    fontWeight: 700,
+                    fontSize: "20px",
+                    color: "#000",
+                  }}
+                >
+                  Сумма
+                </th>
+                <th
+                  scope="col"
+                  style={{
+                    padding: "10px",
+                    fontWeight: 700,
+                    fontSize: "20px",
+                    color: "#000",
+                  }}
+                >
+                  Статус
+                </th>
+                <th
+                  style={{
+                    padding: "10px",
+                    fontWeight: 700,
+                    fontSize: "20px",
+                    color: "#000",
+                  }}
+                ></th>
+              </tr>
+            </thead>
+            <tbody className={styles["tbody-table"]}>
+              {activeOrders.map((order, index) => (
+                <tr
+                  key={order.id}
+                  onClick={() => openOrder(order.id)}
+                  className={styles["rows-table"]}
+                >
+                  <th scope="row" style={{ padding: "10px" }}>
+                    {index + 1}
+                  </th>
+                  <td style={{ padding: "10px" }}>
+                    {order.created.split("T")[0].split("-").reverse().join(".")}
+                  </td>
+                  <td style={{ padding: "10px" }}>{order.client.name}</td>
+                  <td style={{ padding: "10px" }}>{order.amount}</td>
+                  <td style={{ padding: "10px" }}>
+                    <select
+                      name=""
+                      id=""
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      value={order.status}
+                      onChange={(e) => handleStatusChange(e, order.id)}
+                    >
+                      <option value="Создан">Создан</option>
+                      <option value="Оплачено">Оплачено</option>
+                      <option value="В работе">В работе</option>
+                      <option value="В пути">В пути</option>
+                      <option value="Доставлено">Доставлено</option>
+                    </select>
+                  </td>
+                  <td
                     style={{
-                      background: "inherit",
-                      border: "inherit",
-                      cursor: "pointer",
+                      padding: "10px",
                     }}
                   >
-                    В архив
-                  </button>
-                  <PopUpArchive
-                    openModal={openModal}
-                    close={() => setOpenModal(false)}
-                    statusArchive={statusToArchive}
-                    orderId={order.id}
-                    fetchOrders={fetchOrders}
-                  ></PopUpArchive>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        // Cделать проверку на статус(если он не равен Сделано), то
+                        if (order.status !== "Доставлено") {
+                          setStatusToArchive("negative");
+                        } else {
+                          setStatusToArchive("positive");
+                        }
+                        setOpenModal(true);
+                      }}
+                      style={{
+                        background: "inherit",
+                        border: "inherit",
+                        cursor: "pointer",
+                      }}
+                    >
+                      В архив
+                    </button>
+                    <PopUpArchive
+                      openModal={openModal}
+                      close={() => setOpenModal(false)}
+                      statusArchive={statusToArchive}
+                      orderId={order.id}
+                      fetchOrders={fetchOrders}
+                    ></PopUpArchive>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <div>Грусть</div>
       )}

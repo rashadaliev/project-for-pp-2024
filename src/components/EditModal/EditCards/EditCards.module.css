@@ -5,3 +5,7 @@
     padding: 40px;
     margin: 10px 0px;
 }
+
+.color-old-price,.color-through, .style-strikeThrough{
+    margin-top: 10px;
+}
