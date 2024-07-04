@@ -20,16 +20,16 @@ const EditCards = (props) => {
       strikeThrought: "none",
       strikeThroughColor: "#bdbdbd",
       oldPriceColor: "#bdbdbd",
+      buttonText: "Купить",
+      buttonBackground: "#fff",
+      buttonIcon: "",
+      widthSvg: 15,
+      heightSvg: 15,
     };
     setTempCards([...tempCards, newCard]);
     setCards([...tempCards, newCard]);
   };
 
-  const handleColorChange = (index, field, newColor) => {
-    const newTempCards = [...tempCards];
-    newTempCards[index][field] = newColor;
-    setTempCards(newTempCards);
-  };
   const saveChanges = () => {
     setCards(tempCards);
   };
@@ -47,13 +47,13 @@ const EditCards = (props) => {
     setTempCards(newTempCards);
   };
 
-  const handleFileChange = (index, event) => {
+  const handleFileChange = (index, event, field) => {
     const newTempCards = [...tempCards];
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        newTempCards[index]["image"] = reader.result;
+        newTempCards[index][field] = reader.result;
         setTempCards(newTempCards);
       };
       reader.readAsDataURL(file);
@@ -98,7 +98,7 @@ const EditCards = (props) => {
             <input
               type="file"
               id={`card-image-${index}`}
-              onChange={(e) => handleFileChange(index, e)}
+              onChange={(e) => handleFileChange(index, e, "image")}
             />
 
             <label htmlFor={`card-width-${index}`}>Ширина</label>
@@ -129,6 +129,55 @@ const EditCards = (props) => {
               onChange={(e) => handleInputChange(index, "desc", e.target.value)}
             />
 
+            <label htmlFor={`card-buttonText-${index}`}>Текст кнопки</label>
+            <input
+              type="text"
+              value={card.buttonText}
+              id={`card-buttonText-${index}`}
+              onChange={(e) =>
+                handleInputChange(index, "buttonText", e.target.value)
+              }
+            />
+
+            <label htmlFor={`card-buttonBackground-${index}`}>
+              Цвет фона кнопки
+            </label>
+            <input
+              type="color"
+              value={card.buttonBackground}
+              id={`card-buttonBackground-${index}`}
+              onChange={(e) =>
+                handleInputChange(index, "buttonBackground", e.target.value)
+              }
+            />
+
+            <label htmlFor={`card-buttonIcon-${index}`}>Иконка кнопки</label>
+            <input
+              type="file"
+              id={`card-buttonIcon-${index}`}
+              onChange={(e) => handleFileChange(index, e, "buttonIcon")}
+            />
+
+            <label htmlFor={`card-widthSvg-${index}`}>Ширина иконки</label>
+            <input
+              type="number"
+              value={card.widthSvg}
+              onChange={(e) =>
+                handleInputChange(index, "widthSvg", e.target.value)
+              }
+              id={`card-widthSvg-${index}`}
+            />
+
+            <label htmlFor={`card-heightSvg-${index}`}>Высота иконки</label>
+            <input
+              type="number"
+              value={card.heightSvg}
+              onChange={(e) =>
+                handleInputChange(index, "heightSvg", e.target.value)
+              }
+              id={`card-heightSvg-${index}`}
+            />
+
             <label htmlFor={`card-isDiscount-${index}`}>
               Скидочная карточка
             </label>
@@ -140,6 +189,7 @@ const EditCards = (props) => {
                 handleInputChange(index, "isDiscount", e.target.checked)
               }
             />
+
             {card.isDiscount && (
               <>
                 <label htmlFor={`card-newPrice-${index}`}>Новая цена</label>
@@ -175,11 +225,15 @@ const EditCards = (props) => {
                 >
                   Цвет зачёркивания
                 </label>
-                <ChromePicker
-                  width="200px"
-                  color={card.strikeThroughColor}
-                  onChange={(color) =>
-                    handleColorChange(index, "strikeThroughColor", color.hex)
+                <input
+                  type="color"
+                  value={card.strikeThroughColor}
+                  onChange={(e) =>
+                    handleInputChange(
+                      index,
+                      "strikeThroughColor",
+                      e.target.value
+                    )
                   }
                 />
 
@@ -189,11 +243,11 @@ const EditCards = (props) => {
                 >
                   Цвет старой цены
                 </label>
-                <ChromePicker
-                  width="200px"
-                  color={card.oldPriceColor}
-                  onChange={(color) =>
-                    handleColorChange(index, "oldPriceColor", color.hex)
+                <input
+                  type="color"
+                  value={card.oldPriceColor}
+                  onChange={(e) =>
+                    handleInputChange(index, "oldPriceColor", e.target.value)
                   }
                 />
               </>

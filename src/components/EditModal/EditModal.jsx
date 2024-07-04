@@ -6,6 +6,7 @@ import EditCards from "./EditCards/EditCards";
 import EditAboutStore from "./EditAboutStore/EditAboutStore";
 import EditLinks from "./EditLinks/EditLinks";
 import EditFooter from "./EditFooter/EditFooter";
+import EditInformationQA from "./EditInformationQA/EditInformationQA";
 const EditModal = (props) => {
   const {
     openModal,
@@ -20,6 +21,8 @@ const EditModal = (props) => {
     setLinks,
     footer,
     setFooter,
+    infoQA,
+    setInfoQA,
   } = props;
 
   const renderEditForm = () => {
@@ -30,6 +33,13 @@ const EditModal = (props) => {
         return <EditCards cards={cards} setCards={setCards}></EditCards>;
       case "block-info":
         return <EditAboutStore info={info} setInfo={setInfo}></EditAboutStore>;
+      case "block-infoQA":
+        return (
+          <EditInformationQA
+            infoQA={infoQA}
+            setInfoQA={setInfoQA}
+          ></EditInformationQA>
+        );
       case "block-links":
         return <EditLinks links={links} setLinks={setLinks}></EditLinks>;
       case "block-footer":

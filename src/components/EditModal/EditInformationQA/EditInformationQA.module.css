@@ -1,0 +1,33 @@
+.infoQa {
+    margin: 20px;
+  }
+  
+.infoQATitle {
+font-size: 24px;
+font-weight: bold;
+margin-bottom: 20px;
+}
+
+.qaSection {
+margin-bottom: 10px;
+border: 1px solid #ccc;
+padding: 10px;
+border-radius: 5px;
+}
+
+.qaHeader {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.qaTitleInput {
+flex-grow: 1;
+margin-right: 10px;
+}
+
+.qaContent {
+width: 100%;
+margin-top: 10px;
+height: 60px;
+}

@@ -24,10 +24,48 @@
   max-height: 35px;
   max-width: 109px;
   align-items: center;
-  border: #31cfb3;
+  border: none;
   margin: 0;
   cursor: pointer;
   margin: 0 auto;
+}
+
+.container-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-qa {
+  margin: 20px;
+}
+
+.qa-section {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.qa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.qa-title {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.qa-content {
+  width: 100%;
+  margin-top: 10px;
+  height: 60px;
+}
+
+button {
+  margin-left: 5px;
 }
 
 
