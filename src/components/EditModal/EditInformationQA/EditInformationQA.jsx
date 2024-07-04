@@ -5,6 +5,15 @@ const EditInformationQA = (props) => {
   const handleTitleChange = (e) => {
     setInfoQA({ ...infoQA, title: e.target.value });
   };
+  const handleFontChange = (e) => {
+    setInfoQA({ ...infoQA, font: e.target.value });
+  };
+  const handleFontSizeChange = (e) => {
+    setInfoQA({ ...infoQA, fontSize: e.target.value });
+  };
+  const handleFontWeightChange = (e) => {
+    setInfoQA({ ...infoQA, fontWeight: e.target.value });
+  };
 
   const handleSectionTitleChange = (index, newTitle) => {
     const newSections = [...infoQA.sections];
@@ -39,7 +48,40 @@ const EditInformationQA = (props) => {
         value={infoQA.title}
         onChange={handleTitleChange}
         className={styles.infoQATitle}
+        styles={{
+          fontFamily: infoQA.font,
+          fontSize: infoQA.fontSize,
+          fontWeight: infoQA.fontWeight,
+        }}
       />
+
+      <div>
+        <label>
+          Шрифт:
+          <input type="text" value={infoQA.font} onChange={handleFontChange} />
+        </label>
+      </div>
+      <div>
+        <label>
+          Размер шрифта:
+          <input
+            type="text"
+            value={infoQA.fontSize}
+            onChange={handleFontSizeChange}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Толщина шрифта:
+          <select value={infoQA.fontWeight} onChange={handleFontWeightChange}>
+            <option value="normal">Normal</option>
+            <option value="bold">Bold</option>
+            <option value="bolder">Bolder</option>
+            <option value="lighter">Lighter</option>
+          </select>
+        </label>
+      </div>
 
       {infoQA.sections.map((section, index) => (
         <div key={section.id} className={styles.qaSection}>

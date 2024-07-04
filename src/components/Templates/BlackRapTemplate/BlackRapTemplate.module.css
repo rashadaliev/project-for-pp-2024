@@ -68,6 +68,12 @@ button {
   margin-left: 5px;
 }
 
+.footer-contacts{
+  display: flex;
+  justify-content: center;
+  gap:20px;
+}
+
 
 
   

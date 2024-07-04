@@ -6,12 +6,32 @@ import logoTemplates from "../../../assets/logoTemplates.png";
 import EditModal from "../../EditModal/EditModal";
 import t_shirt_img from "../../../assets/white_t_shirt.png";
 import cart from "../../../assets/cart.svg";
+import tgLogo from "../../../assets/tg-logo-footer.svg";
+import vkLogo from "../../../assets/vk-logo-footer.svg";
+import emailLogo from "../../../assets/email-logo-footer.svg";
+import footerLogo from "../../../assets/logo-footer.svg";
+import { Link } from "react-router-dom";
 const BlackRapTemplate = () => {
   const [uploadedImage, setUploadedImage] = useState(null); //обновление картинки
   const [openModal, setOpenModal] = useState(false); // открытие модального окна для редактирования
   const [selectedElementId, setSelectedElementId] = useState(null);
+  const [linksWithoutTitle, setLinksWithoutTitle] = useState([
+    {
+      id: 1,
+      iconType: "vk",
+      link: "#",
+    },
+    {
+      id: 2,
+      iconType: "tg",
+      link: "#",
+    },
+  ]);
   const [infoQA, setInfoQA] = useState({
     title: "Info",
+    font: "Comfortaa",
+    fontSize: "16px",
+    fontWeight: "normal",
     sections: [
       {
         id: 1,
@@ -138,7 +158,17 @@ const BlackRapTemplate = () => {
         setOpenModal={() => handleOpenModal(true, "block-infoQA")}
       >
         <div className={styles["container-info"]}>
-          <h1>{infoQA.title}</h1>
+          {infoQA.title && (
+            <h1
+              style={{
+                fontFamily: infoQA.font,
+                fontSize: infoQA.fontSize,
+                fontWeight: infoQA.fontWeight,
+              }}
+            >
+              {infoQA.title}
+            </h1>
+          )}
           <div className={styles["info-qa"]}>
             {infoQA.sections.map((section) => (
               <div key={section.id} className={styles["qa-section"]}>
@@ -156,6 +186,22 @@ const BlackRapTemplate = () => {
           </div>
         </div>
       </HoverableBlock>
+      <hr />
+      <HoverableBlock
+        setOpenModal={() => handleOpenModal(true, "block-links-without-title")}
+      >
+        <div className={styles["footer-contacts"]}>
+          {linksWithoutTitle.map((el) => (
+            <Link to={el.link} target="_blank">
+              {el.iconType === "vk" && <img src={vkLogo} alt="" />}
+              {el.iconType === "tg" && <img src={tgLogo} alt="" />}
+              {el.iconType === "email" && <img src={emailLogo} alt="" />}
+              {el.iconType === "logo" && <img src={footerLogo} alt="" />}
+            </Link>
+          ))}
+        </div>
+      </HoverableBlock>
+      <p>2024 © KONSTRUCT WEBSITE SAMPLE</p>
 
       <EditModal
         openModal={openModal}
@@ -166,6 +212,8 @@ const BlackRapTemplate = () => {
         setCards={setCards}
         infoQA={infoQA}
         setInfoQA={setInfoQA}
+        linksWithoutTitle={linksWithoutTitle}
+        setLinksWithoutTitle={setLinksWithoutTitle}
       ></EditModal>
     </div>
   );

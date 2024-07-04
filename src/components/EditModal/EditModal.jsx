@@ -7,6 +7,7 @@ import EditAboutStore from "./EditAboutStore/EditAboutStore";
 import EditLinks from "./EditLinks/EditLinks";
 import EditFooter from "./EditFooter/EditFooter";
 import EditInformationQA from "./EditInformationQA/EditInformationQA";
+import EditLinksWithoutTitle from "./EditLinksWithoutTitle/EditLinksWithoutTitle";
 const EditModal = (props) => {
   const {
     openModal,
@@ -23,6 +24,8 @@ const EditModal = (props) => {
     setFooter,
     infoQA,
     setInfoQA,
+    linksWithoutTitle,
+    setLinksWithoutTitle,
   } = props;
 
   const renderEditForm = () => {
@@ -40,8 +43,16 @@ const EditModal = (props) => {
             setInfoQA={setInfoQA}
           ></EditInformationQA>
         );
+
       case "block-links":
         return <EditLinks links={links} setLinks={setLinks}></EditLinks>;
+      case "block-links-without-title":
+        return (
+          <EditLinksWithoutTitle
+            linksWithoutTitle={linksWithoutTitle}
+            setLinksWithoutTitle={setLinksWithoutTitle}
+          ></EditLinksWithoutTitle>
+        );
       case "block-footer":
         return <EditFooter footer={footer} setFooter={setFooter}></EditFooter>;
       default:
