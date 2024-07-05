@@ -5,26 +5,66 @@ import HoverableBlock from "../../HoverableBlock/HoverableBlock";
 import logoTemplates from "../../../assets/logoTemplates.png";
 import EditModal from "../../EditModal/EditModal";
 import t_shirt_img from "../../../assets/white_t_shirt.png";
-import cart from "../../../assets/cart.svg";
+import DefaultCartIcon from "../../../assets/cart.svg";
 import tgLogo from "../../../assets/tg-logo-footer.svg";
 import vkLogo from "../../../assets/vk-logo-footer.svg";
 import emailLogo from "../../../assets/email-logo-footer.svg";
 import footerLogo from "../../../assets/logo-footer.svg";
 import { Link } from "react-router-dom";
+import cartSVG from "../../../assets/cartBR.svg";
+import ShoppingCartModal from "../../EditModal/ShoppingCartModal/ShoppingCartModal";
 const BlackRapTemplate = () => {
   const [uploadedImage, setUploadedImage] = useState(null); //обновление картинки
   const [openModal, setOpenModal] = useState(false); // открытие модального окна для редактирования
   const [selectedElementId, setSelectedElementId] = useState(null);
+  const [cart, setCart] = useState({
+    goods: [],
+    generalCount: 0,
+    isOpen: false,
+  });
+  const addToCart = (id, name, price, image, desc) => {
+    setCart((prevCart) => {
+      const existingGoodIndex = prevCart.goods.findIndex(
+        (good) => good.id === id
+      );
+      let newGoods;
+
+      if (existingGoodIndex !== -1) {
+        newGoods = prevCart.goods.map((good, index) =>
+          index === existingGoodIndex
+            ? { ...good, count: good.count + 1 }
+            : good
+        );
+      } else {
+        const newGood = {
+          id: id,
+          name: name,
+          price: price,
+          image: image,
+          count: 1,
+          desc: desc,
+        };
+        newGoods = [...prevCart.goods, newGood];
+      }
+
+      return {
+        goods: newGoods,
+        generalCount: prevCart.generalCount + 1,
+      };
+    });
+  };
   const [linksWithoutTitle, setLinksWithoutTitle] = useState([
     {
       id: 1,
       iconType: "vk",
       link: "#",
+      customIcon: "",
     },
     {
       id: 2,
       iconType: "tg",
       link: "#",
+      customIcon: "",
     },
   ]);
   const [infoQA, setInfoQA] = useState({
@@ -95,6 +135,17 @@ const BlackRapTemplate = () => {
             alt=""
             style={{ maxWidth: "100px", maxHeight: "100px" }}
           />
+          <div
+            onClick={() =>
+              setCart((prevCart) => ({
+                ...prevCart,
+                isOpen: !prevCart.isOpen,
+              }))
+            }
+          >
+            {cart.generalCount != 0 && <p>{cart.generalCount}</p>}
+            <img src={cartSVG} alt="" />
+          </div>
         </div>
       </HoverableBlock>
 
@@ -138,10 +189,19 @@ const BlackRapTemplate = () => {
                 style={{
                   backgroundColor: card.buttonBackground,
                 }}
+                onClick={() =>
+                  addToCart(
+                    card.id,
+                    card.name,
+                    card.price,
+                    card.image,
+                    card.desc
+                  )
+                }
               >
                 <p className={styles["card__btn-title"]}>{card.buttonText}</p>
                 <img
-                  src={card.buttonIcon || cart}
+                  src={card.buttonIcon || DefaultCartIcon}
                   alt=""
                   style={{
                     marginLeft: card.buttonText ? "8px" : "0px",
@@ -193,10 +253,20 @@ const BlackRapTemplate = () => {
         <div className={styles["footer-contacts"]}>
           {linksWithoutTitle.map((el) => (
             <Link to={el.link} target="_blank">
-              {el.iconType === "vk" && <img src={vkLogo} alt="" />}
-              {el.iconType === "tg" && <img src={tgLogo} alt="" />}
-              {el.iconType === "email" && <img src={emailLogo} alt="" />}
-              {el.iconType === "logo" && <img src={footerLogo} alt="" />}
+              {el.customIcon ? (
+                <img src={el.customIcon} alt="Custom Icon" />
+              ) : (
+                <>
+                  {el.iconType === "vk" && <img src={vkLogo} alt="VK" />}
+                  {el.iconType === "tg" && <img src={tgLogo} alt="Telegram" />}
+                  {el.iconType === "email" && (
+                    <img src={emailLogo} alt="Email" />
+                  )}
+                  {el.iconType === "logo" && (
+                    <img src={footerLogo} alt="Logo" />
+                  )}
+                </>
+              )}
             </Link>
           ))}
         </div>
@@ -215,6 +285,7 @@ const BlackRapTemplate = () => {
         linksWithoutTitle={linksWithoutTitle}
         setLinksWithoutTitle={setLinksWithoutTitle}
       ></EditModal>
+      <ShoppingCartModal cart={cart} setCart={setCart}></ShoppingCartModal>
     </div>
   );
 };

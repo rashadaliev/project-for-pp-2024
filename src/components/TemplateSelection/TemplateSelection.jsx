@@ -27,7 +27,11 @@ const TemplateSelection = (props) => {
               <WhiteBusinessTemplate />
             </BrowserRouter>
           )
-        : ReactDOMServer.renderToStaticMarkup(<BlackRapTemplate />);
+        : ReactDOMServer.renderToString(
+            <BrowserRouter>
+              <BlackRapTemplate />
+            </BrowserRouter>
+          );
     console.log(content);
     chooseTemplate(nameSite, description, content);
   };

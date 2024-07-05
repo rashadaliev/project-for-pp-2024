@@ -21,12 +21,26 @@ const EditLinksWithoutTitle = (props) => {
       id: linksWithoutTitle.length + 1,
       iconType: selectedIcon,
       link: "",
+      customIcon: "",
     };
     setLinksWithoutTitle([...linksWithoutTitle, newLink]);
   };
   const handleDeleteLink = (id) => {
     const updatedLinks = linksWithoutTitle.filter((link) => link.id !== id);
     setLinksWithoutTitle(updatedLinks);
+  };
+  const handleFileUpload = (e, id) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const newLinks = linksWithoutTitle.map((el) =>
+          el.id === id ? { ...el, customIcon: reader.result } : el
+        );
+        setLinksWithoutTitle(newLinks);
+      };
+      reader.readAsDataURL(file);
+    }
   };
   return (
     <>
@@ -50,6 +64,11 @@ const EditLinksWithoutTitle = (props) => {
                 <option value="tg">Telegram</option>
                 <option value="logo">Logo</option>
               </select>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleFileUpload(e, el.id)}
+              />
               <button onClick={() => handleDeleteLink(el.id)}>X</button>
             </div>
           </div>

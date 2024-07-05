@@ -42,13 +42,13 @@ const WhiteBusinessTemplate = () => {
     textArea: "",
   });
   const [cards, setCards] = useState([
-    {
-      id: 1,
-      price: 2000,
-      name: "Шапка дуделка",
-      image: `${cardimgTemplate}`,
-      desc: "",
-    },
+    // {
+    //   id: 1,
+    //   price: 2000,
+    //   name: "Шапка дуделка",
+    //   image: `${cardimgTemplate}`,
+    //   desc: "",
+    // },
   ]);
   const [htmlContent, setHtmlContent] = useState("");
   useEffect(() => {

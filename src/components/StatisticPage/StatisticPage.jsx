@@ -38,6 +38,14 @@ const StatisticPage = () => {
             </div>
           ))}
         </li>
+        <li>
+          <p>Самый продаваемый товар:</p>
+          <div>{statistic.sale}</div>
+        </li>
+        <li>
+          <p>Было заработано за всё время:</p>
+          <div>{statistic.profit}</div>
+        </li>
       </ul>
     </div>
   );

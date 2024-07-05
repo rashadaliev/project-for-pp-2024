@@ -47,7 +47,8 @@ const MasterCRM = (props) => {
       dealId: orderId,
       status: newStatus,
     });
-    fetchOrders();
+    const currentStatus = document.querySelector("#filters").value;
+    handleFilterChange(currentStatus);
   };
 
   const handleStatusChange = (event, orderId) => {
@@ -61,22 +62,38 @@ const MasterCRM = (props) => {
     fetchSites();
     fetchOrders();
   }, []);
-
-  //сделать при клике на Архив переход на архив, в котором отображеются заявки из ВАУ архива
-  // Сделать отображение в Статистике Общее кол-во заявок,Кол-во отменённых заявок, Самый продаваемый товар(в данный промежуток времени)
-
+  const getFilteredBids = async (status) => {
+    const response = await axios.get(
+      `http://localhost:5231/api/Deal/Status?Project_id=${JSON.parse(
+        localStorage.getItem("projectId")
+      )}&status=${status}`
+    );
+    setOrders(response.data);
+  };
+  const handleFilterChange = async (status) => {
+    if (status === "Не выбрано") {
+      fetchOrders();
+    } else {
+      getFilteredBids(status);
+    }
+  };
   return (
     <>
       {checkCRM(stateCRM) ? (
         <div>
           <div className={styles["filters"]}>
-            <p>Фильтры</p>
-            <select name="" id="">
-              <option value="Создан фильтр">Создан</option>
-              <option value="Оплачено фильтр">Оплачено</option>
-              <option value="В работе фильтр">В работе</option>
-              <option value="В пути фильтр">В пути</option>
-              <option value="Доставлено фильтр">Доставлено</option>
+            <label htmlFor="filters">Фильтрация по статусам</label>
+            <select
+              name="filters"
+              id="filters"
+              onChange={(e) => handleFilterChange(e.target.value)}
+            >
+              <option value="Не выбрано">Не выбрано</option>
+              <option value="Создан">Создан</option>
+              <option value="Оплачено">Оплачено</option>
+              <option value="В работе">В работе</option>
+              <option value="В пути">В пути</option>
+              <option value="Доставлено">Доставлено</option>
             </select>
           </div>
           <table
