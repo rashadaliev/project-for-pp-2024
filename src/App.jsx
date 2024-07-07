@@ -16,6 +16,7 @@ import { useLocation } from "react-router-dom";
 import ArchivePage from "./components/ArchivePage/ArchivePage";
 import HeaderCRM from "./components/MasterCRM/HeaderCRM/HeaderCRM";
 import StatisticPage from "./components/StatisticPage/StatisticPage";
+import ReadySiteBlackRap from "./components/ReadySite/ReadySiteBlackRap/ReadySiteBlackRap";
 const App = () => {
   const [selectedSection, setSelectedSection] = useState();
   const location = useLocation();
@@ -67,6 +68,10 @@ const App = () => {
           element={<WhiteBusinessTemplate />}
         ></Route>
         <Route path="/konstruct" element={<ReadySite></ReadySite>}></Route>
+        <Route
+          path="/konstruct2"
+          element={<ReadySiteBlackRap></ReadySiteBlackRap>}
+        ></Route>
         <Route path="/order" element={<OrderCRM></OrderCRM>}></Route>
       </Routes>
     </>

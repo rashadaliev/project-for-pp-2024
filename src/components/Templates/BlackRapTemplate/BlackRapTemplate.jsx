@@ -13,7 +13,11 @@ import footerLogo from "../../../assets/logo-footer.svg";
 import { Link } from "react-router-dom";
 import cartSVG from "../../../assets/cartBR.svg";
 import ShoppingCartModal from "../../EditModal/ShoppingCartModal/ShoppingCartModal";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const BlackRapTemplate = () => {
+  const navigate = useNavigate();
   const [uploadedImage, setUploadedImage] = useState(null); //обновление картинки
   const [openModal, setOpenModal] = useState(false); // открытие модального окна для редактирования
   const [selectedElementId, setSelectedElementId] = useState(null);
@@ -124,8 +128,43 @@ const BlackRapTemplate = () => {
       ),
     }));
   };
+  const [htmlContent, setHtmlContent] = useState("");
+  useEffect(() => {
+    const html = document.getElementById("black-rap-template").innerHTML;
+    setHtmlContent(html);
+  }, [cards, infoQA, linksWithoutTitle, uploadedImage]);
+  const updateProject = async (description, content) => {
+    const projectDetails = await getProjectDetails();
+    const projectName = projectDetails.name;
+    await axios.post(`http://localhost:5231/api/Project/Edit`, {
+      master_Id: JSON.parse(localStorage.getItem("user")).client_id,
+      name: projectName,
+      description: description,
+      content: content,
+    });
+    navigate("/projects", { state: { cards: cards, infoQA: infoQA.sections } });
+  };
+  const getProjectDetails = async () => {
+    const response = await axios.get(
+      `http://localhost:5231/api/Project?Master_id=${
+        JSON.parse(localStorage.getItem("user")).client_id
+      }`,
+      {
+        params: {
+          id: JSON.parse(localStorage.getItem("user")).client_id,
+        },
+      }
+    );
+    return response.data;
+  };
   return (
-    <div className={styles.container} id="white-business-template">
+    <div className={styles.container} id="black-rap-template">
+      <button
+        onClick={() => updateProject("Black Rap", htmlContent)}
+        className="btn-ready"
+      >
+        Наконец то сделал
+      </button>
       <HoverableBlock
         setOpenModal={() => handleOpenModal(true, "block-header")}
       >
@@ -142,6 +181,7 @@ const BlackRapTemplate = () => {
                 isOpen: !prevCart.isOpen,
               }))
             }
+            className={styles["shopping-cart"]}
           >
             {cart.generalCount != 0 && <p>{cart.generalCount}</p>}
             <img src={cartSVG} alt="" />
@@ -154,13 +194,13 @@ const BlackRapTemplate = () => {
           {cards.map((card) => (
             <div className={styles["card"]} data-id={card.id}>
               <img
-                className={styles["card__title"]}
+                className={styles["card__img"]}
                 src={card.image}
                 alt=""
                 width={card.width}
                 height={card.height}
               />
-              <p className={styles["card__desc"]}>{card.name}</p>
+              <p className={styles["card__title"]}>{card.name}</p>
               <p className={styles["card__price"]}>
                 {card.isDiscount ? (
                   <>

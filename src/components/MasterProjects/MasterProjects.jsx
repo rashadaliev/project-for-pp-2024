@@ -10,11 +10,14 @@ import axios from "axios";
 const MasterProjects = () => {
   const location = useLocation();
   const cards = location.state?.cards;
+  const infoQA = location.state?.infoQA;
+  console.log(infoQA);
   const handleClick = () => {
     const queryString = new URLSearchParams({
       cards: JSON.stringify(cards),
+      infoQA: JSON.stringify(infoQA),
     }).toString();
-    const url = `/konstruct?${queryString}`;
+    const url = `/konstruct2?${queryString}`; // изменять konstruct - white bisuness, konstruct2 - blackrap
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     // if (!newWindow) {
     //   navigate("/konstruct", { state: { cards: cards } });

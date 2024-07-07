@@ -1,0 +1,23 @@
+.qa-section {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  .qa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .qa-title {
+    margin: 0;
+  }
+  
+  .qa-button {
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: none;
+    padding: 5px 10px;
+    font-size: 18px;
+  }

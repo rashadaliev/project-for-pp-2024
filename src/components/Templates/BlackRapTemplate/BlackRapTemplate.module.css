@@ -8,7 +8,7 @@
   text-align: center;
 }
 
-.card__desc,.card__price, .card__btn-buy{
+.card__title,.card__price, .card__btn-buy{
   text-align: center;
 }
 
@@ -74,7 +74,9 @@ button {
   gap:20px;
 }
 
-
-
+.shopping-cart{
   
-
+}
+.card{
+  
+}
