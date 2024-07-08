@@ -172,7 +172,7 @@ const BlackRapTemplate = () => {
           <img
             src={uploadedImage ? uploadedImage : logoTemplates}
             alt=""
-            style={{ maxWidth: "100px", maxHeight: "100px" }}
+            style={{ maxWidth: "40px", maxHeight: "40px" }}
           />
           <div
             onClick={() =>
@@ -190,7 +190,7 @@ const BlackRapTemplate = () => {
       </HoverableBlock>
 
       <HoverableBlock setOpenModal={() => handleOpenModal(true, "block-cards")}>
-        <div className="block-cards">
+        <div className={styles["block-cards"]}>
           {cards.map((card) => (
             <div className={styles["card"]} data-id={card.id}>
               <img
@@ -309,9 +309,11 @@ const BlackRapTemplate = () => {
               )}
             </Link>
           ))}
-        </div>
+        </div> 
       </HoverableBlock>
-      <p>2024 © KONSTRUCT WEBSITE SAMPLE</p>
+      <div className={styles["footer-info"]}> 
+          <p>2024 © KONSTRUCT WEBSITE SAMPLE</p>
+      </div>
 
       <EditModal
         openModal={openModal}

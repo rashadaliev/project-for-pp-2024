@@ -1,3 +1,4 @@
+import "../ReadySiteBlackRap/ReadySiteBlackRap.css";
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
@@ -207,7 +208,7 @@ const ReadySiteBlackRap = () => {
 
   return (
     <>
-      <div dangerouslySetInnerHTML={{ __html: siteContent }} />
+      <div className="container" dangerouslySetInnerHTML={{ __html: siteContent }} />
       <ShoppingCartModal cart={cart} setCart={setCart}></ShoppingCartModal>
       <ModalCard
         openCardModal={openCardModal}
